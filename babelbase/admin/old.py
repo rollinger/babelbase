@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 from .base import BabelBaseModelAdmin
-from babelbase.babelbase.models import Content
+from babelbase.models import Content
 
 
 @admin.register(Content)

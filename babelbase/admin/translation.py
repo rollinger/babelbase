@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from babelbase.babelbase.admin.base import BabelBaseModelAdmin
-from babelbase.babelbase.models import Namespace, TranslationSource, TranslationTarget
+from babelbase.admin.base import BabelBaseModelAdmin
+from babelbase.models import Namespace, TranslationSource, TranslationTarget
 
 
 @admin.register(Namespace)

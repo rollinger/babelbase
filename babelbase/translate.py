@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db.utils import ProgrammingError
 from django.utils.functional import lazy
 
-from babelbase.babelbase.models import TranslationSource
+from babelbase.models import TranslationSource
 
 
 def convert_curly_braces(text):

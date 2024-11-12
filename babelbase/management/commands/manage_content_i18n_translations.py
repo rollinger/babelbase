@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Count
 
-from babelbase.babelbase.models import Content
+from babelbase.models import Content
 
 
 class Command(BaseCommand):

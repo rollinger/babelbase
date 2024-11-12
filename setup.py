@@ -9,7 +9,7 @@ setup(
         "Django>=4.2",  # specify Django version compatible with your package
     ],
     description="Database powered Translations for Django",
-    long_description=open("README.md").read(),
+    long_description=open("Readme.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/rollinger/babelbase",
     author="Philipp Rollinger",

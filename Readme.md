@@ -50,6 +50,9 @@ pip install git+https://github.com/rollinger/babelbase.git
 
 ## Quick Start
 
+Add 'babelbase' to your INSTALLED_APPS settings.
+Run migrations to create the models.
+
 ## Configuration
 
 ## Usage

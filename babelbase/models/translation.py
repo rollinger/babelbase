@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from babelbase.babelbase.models.base import TimestampMixin
-from babelbase.babelbase.utils import default_json_list, get_current_locale
+from babelbase.models.base import TimestampMixin
+from babelbase.utils import default_json_list, get_current_locale
 
 
 class Namespace(models.Model):
@@ -12,7 +12,7 @@ class Namespace(models.Model):
     class Meta:
         verbose_name = _("Namespace")
         verbose_name_plural = _("Namespaces")
-        ordering = ("-slug",)
+        ordering = ("-namespace",)
 
     namespace = models.SlugField(
         _("Unique Namespace Slug"), max_length=255, allow_unicode=True, unique=True
