@@ -3,7 +3,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from babelbase.models.base import TimestampMixin
-from babelbase.utils import default_json_list, get_current_locale
+from babelbase.utils import (
+    default_json_list,
+    get_current_locale,
+    translation_target_locales,
+)
 
 
 class Namespace(models.Model):
@@ -67,6 +71,11 @@ class TranslationSource(TimestampMixin, models.Model):
         if translation:
             return translation.content
         return self.content
+
+    def translation_content_bitmask(self):
+        locales = translation_target_locales()
+        return locales
+        return ",".join(locales)
 
     """
     def check_translation_completeness(self):

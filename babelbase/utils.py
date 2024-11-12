@@ -11,7 +11,9 @@ def all_locales():
 
 
 def translation_target_locales():
-    return all_locales().remove(settings.LANGUAGE_CODE)
+    locales = all_locales()
+    locales.remove(settings.LANGUAGE_CODE)
+    return locales
 
 
 def get_current_locale(self):

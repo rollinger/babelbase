@@ -21,3 +21,16 @@ class BabelBaseModelAdmin(admin.ModelAdmin):
             "widget": Textarea(attrs={"style": "width:100%; height:250px;"})
         },
     }
+
+    def content_preview(self, obj):
+        return f"{obj.content[:50]}..."
+
+
+class BabelBaseStackedInline(admin.StackedInline):
+    formfield_overrides = {
+        models.CharField: {"widget": TextInput(attrs={"style": "width:100%;"})},
+        # models.JSONField: {"widget": JSONEditorWidget(width="100%", height="250px")},
+        models.TextField: {
+            "widget": Textarea(attrs={"style": "width:100%; height:250px;"})
+        },
+    }
