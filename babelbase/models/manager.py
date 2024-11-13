@@ -1,6 +1,16 @@
 from django.db import models
 
 
+class TranslationSourceManager(models.Manager):
+    def get_source_or_none(self, namespace, identifier):
+        """Tries to fetch the source directly and returns None if it does not exists in the database"""
+        try:
+            instance = self.get(namespace__namespace=namespace, identifier=identifier)
+        except self.model.DoesNotExist:
+            instance = None
+        return instance
+
+
 class ContentManager(models.Manager):
     def get_translatables(self, view_id, key_id=None):
         """Returns a queryset of translatable snippets

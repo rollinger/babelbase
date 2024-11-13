@@ -53,6 +53,13 @@ pip install git+https://github.com/rollinger/babelbase.git
 Add 'babelbase' to your INSTALLED_APPS settings.
 Run migrations to create the models.
 
+Enable i18n language processing
+
+- path("i18n/", include("django.conf.urls.i18n")),
+- wrapping i18n_pattern to the urls
+- add 'django.middleware.locale.LocaleMiddleware', to the middleware list (must be between session and common mw)
+- add "django.template.context_processors.i18n", to context processor list
+
 ## Configuration
 
 ## Usage

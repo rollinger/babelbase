@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from babelbase.models.base import TimestampMixin
+from babelbase.models.manager import TranslationSourceManager
 from babelbase.utils import (
     default_json_list,
     get_current_locale,
@@ -61,6 +62,8 @@ class TranslationSource(TimestampMixin, models.Model):
         _("Potential Duplicate Sources"), default=default_json_list, blank=True
     )
 
+    objects = TranslationSourceManager()
+
     def get_translation(self, locale=None):
         """Returns the source translation of the content if available, otherwise returns the source content"""
         if not locale:
@@ -69,8 +72,8 @@ class TranslationSource(TimestampMixin, models.Model):
             _lang=locale, approved=True
         ).first()
         if translation:
-            return translation.content
-        return self.content
+            return translation
+        return None
 
     def translation_content_bitmask(self):
         locales = translation_target_locales()

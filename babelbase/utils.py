@@ -16,7 +16,7 @@ def translation_target_locales():
     return locales
 
 
-def get_current_locale(self):
+def get_current_locale():
     """Returns the name of current locale if available, otherwise returns the default language code."""
     lang = get_language()
     if not lang:
