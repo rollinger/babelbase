@@ -7,6 +7,7 @@ The babel tag is used to translate a single string, while the babelblock tag is 
 from django import template
 from django.conf import settings
 from django.conf.urls.i18n import is_language_prefix_patterns_used
+from django.urls import translate_url as translate_url
 from django.template import Library
 
 from babelbase.models import TranslationSource
@@ -15,7 +16,7 @@ register = Library()
 
 
 @register.simple_tag(takes_context=False)
-def untranslate_url(path):
+def deinternationalize_url(path):
     """Returns the path without a language code prefix, if found"""
     path_parts = path.strip("/").split("/")
     if path_parts[0] in dict(settings.LANGUAGES):
@@ -26,18 +27,20 @@ def untranslate_url(path):
 
 
 @register.simple_tag(takes_context=False)
-def translate_url(path, language_code):
+def internationalize_url(path, language_code):
     def reassemble_path(components):
         path = "/" + "/".join(components)
         return path
 
-    # Get the untranslated url, default language and the prefixing status
-    untranslated_path = untranslate_url(path)
+    # Get the language agnostic path, default language and the prefixing status
+    agnostic_path = deinternationalize_url(path)
     default_language = settings.LANGUAGE_CODE
     prefix_pattern_status = is_language_prefix_patterns_used(settings.ROOT_URLCONF)
 
-    # Strip leading and trailing slashes and split the untranslated_path into it's component
-    path_parts = untranslated_path.strip("/").split("/")
+    # Attempt to translate the path
+    # print(translate_url(path, language_code), language_code, path)
+    # Strip leading and trailing slashes and split the agnostic_path into it's component
+    path_parts = agnostic_path.strip("/").split("/")
 
     # LocalePrefixPattern Consideration
     if not prefix_pattern_status[0]:
@@ -47,9 +50,10 @@ def translate_url(path, language_code):
         # If the default language should NOT be prefixed
         return reassemble_path(path_parts)
 
-    # Otherwise add prefix the language code and reassemble
+    # Otherwise add prefix the language code, reassemble and translate if necessary
     path_parts.insert(0, language_code)
-    return reassemble_path(path_parts)
+    reassembled_path = reassemble_path(path_parts)
+    return reassembled_path
 
 
 @register.simple_tag(takes_context=True)
